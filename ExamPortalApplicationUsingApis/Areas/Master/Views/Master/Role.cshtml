@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Role";
+    Layout = "~/Areas/Master/Views/Shared/MasterLayout.cshtml";
+}
+
+<h2>Role</h2>
+<script src="~/Scripts/jquery.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script>
+
+    $(document).ready(function () {
+        GetAllRoles();
+    })
+
+    function GetAllRoles() {
+        $.ajax({
+            url: '/Master/Master/GetTheRoles',
+            method: 'get',
+            contentType: 'application/json',
+            success: function (resp) {
+                $("#tbldata").empty();
+                $.each(resp, function (i, d) {
+                    $("#tbldata").append("<tr><td>" + (i + 1) + "</td><td>" + d.RoleName + "</td><td><button type='button' class='btn btn-info' onclick='ViewRole(" + d.RoleId + ")'><span class='glyphicon glyphicon-edit'></span></button></td></tr>")
+                })
+                console.log(resp);
+            }
+        })
+    }
+
+    function ViewRole(id) {
+
+    }
+</script>
+
+<button class="btn btn-primary" id="btnadd"><span class="glyphicon glyphicon-plus"></span></button>
+<div class="modal fade" id="rolemodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 id="modaltitle"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Role Id</label>
+                    <input type="text" id="txtrole_id" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Role Name</label>
+                    <input type="text" id="txtrole_name" class="form-control" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" />
+                <input type="button" value="Update" id="btnupdate" class="btn btn-info" />
+                <input type="button" value="Delete" id="btndelete" class="btn btn-warning" />
+                <input type="button" value="Close" id="btnclose" class="btn btn-danger" />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Sr NO.</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="tbldata">
+    </tbody>
+</table>
+

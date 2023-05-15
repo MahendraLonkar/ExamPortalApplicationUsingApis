@@ -1,0 +1,65 @@
+﻿@model ExamPortalApplicationUsingApis.Models.tblstudent_details
+@{
+    Layout = "~/Areas/Student/Views/Shared/_StudentLayout.cshtml";
+}
+
+
+
+
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapseOne">Student Profile</a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Student Code:</span>
+                            <b>@Model.student_code</b>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <span>Student Name:  </span>
+                            <b>@Model.student_name</b>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <span>Email Address:</span>
+                            <b>@Model.email_address</b>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <span>Contact Number: </span>
+                            <b>@Model.mobile_number</b>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <span>Birth Date: </span>
+                            <b>@DateTime.Now.ToShortDateString()</b>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <span>Local Address: </span>
+                            <b>@Model.address</b>
+                        </div>
+                    </div>
+                     
+
+                </div>
+            </div>
+        </div>
+
+</div>

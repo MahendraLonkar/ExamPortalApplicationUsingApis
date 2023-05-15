@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ExamPortalApplicationUsingApis.Areas.Master.Models.AllExamModel>
+@{
+    ViewBag.Title = "AllExams";
+    Layout = "~/Areas/Master/Views/Shared/MasterLayout.cshtml";
+}
+
+@*<h2>AllExams</h2>
+
+
+<div>
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Exam Date</th>
+                <th>Student Name</th>
+                <th>Topic</th>
+                <th>Total Question</th>
+                <th>Attempted Question</th>
+                <th>Correct Question</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int cnt = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@cnt</td>
+                    <td>@item.exam_date</td>
+                    <td>@item.student_name</td>
+                    <td>@item.topic_name</td>
+                    <td>@item.total_attempted_questions</td>
+                    <td>@item.total_correct_questions</td>
+                    <td>@item.start_time</td>
+                    <td>@item.end_time</td>
+                    <td>@item.status</td>
+
+
+                </tr>
+                cnt++;
+            }
+        </tbody>
+    </table>
+</div>*@

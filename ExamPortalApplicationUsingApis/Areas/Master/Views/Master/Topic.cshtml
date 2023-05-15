@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewBag.Title = "Topic";
+    Layout = "~/Areas/Master/Views/Shared/MasterLayout.cshtml";
+}
+<script>
+    var apiurl = "/api/topic";
+    var contents = [];
+    $(document).ready(function () {
+        ClearData();
+        AllTopics();
+        $("#btnadd").click(function () {
+            $("#topicmodal").modal("show");
+        })
+        $("#btnclose").click(function () {
+            ClearData();
+            $("#topicmodal").modal("hide");
+        })
+        $("#btnsubmit").click(function () {
+            AddTopic();
+        })
+        $("#btnaddcontent").click(function () {
+            AddContent();
+        })
+        $("#btnupdate").click(function () {
+            UpdateTopic();
+        })
+        $("#btndelete").click(function () {
+           DeleteTopic();
+        })
+    })
+
+    function AddContent() {
+        var c = $("#txtcontent_name").val();
+        var st = { "content_name": c, "flag": 0 };
+        contents.push(st);
+       
+        $("#txtcontent_name").val("");
+        DisplayContents();
+    }
+    function DisplayContents() {
+        $("#contentdata").empty();
+        $.each(contents, function (i, d) {
+            $("#contentdata").append("<li>"+d.content_name+"</li>");
+        })
+    }
+
+    function AddTopic() {
+        var st = { "topic_name": $("#txttopic_name").val(),"tbltopic_contents":contents };
+        $.ajax({
+            url: apiurl,
+            method: "post",
+            data: JSON.stringify(st),
+            contentType: 'application/json',
+            success: function (resp) {
+                alert(resp);
+                ClearData();
+                AllTopics();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+
+    function AllTopics() {
+        $.ajax({
+            url: apiurl,
+            method: "get",
+            contentType: 'application/json',
+            success: function (resp) {
+                //console.log(resp);
+                $("#tbldata").empty();
+                $.each(resp, function (i, d) {
+                    $("#tbldata").append("<tr><td>"+(i+1)+"</td><td>"+d.topic_name+"</td><td><button type='button' class='btn btn-info' onclick='ViewTopic("+d.topic_id+")'><span class='glyphicon glyphicon-edit'></span></button></td></tr>")
+                })
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+    function ViewTopic(id) {
+        $.ajax({
+            url: apiurl+"/"+id,
+            method: "get",
+            contentType: 'application/json',
+            success: function (r) {
+                //console.log(resp);
+                $("#txttopic_id").val(r.topic_id);
+                $("#txttopic_name").val(r.topic_name);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+        $("#btnupdate").show();
+        $("#btndelete").show();
+        $("#btnsubmit").hide();
+        $("#modaltitle").html("Update Topic");
+
+        $("#topicmodal").modal("show");
+
+    }
+
+    function UpdateTopic() {
+        var st = {"topic_id":$("#txttopic_id").val(), "topic_name": $("#txttopic_name").val() };
+        $.ajax({
+            url: apiurl,
+            method: "put",
+            data: JSON.stringify(st),
+            contentType: 'application/json',
+            success: function (resp) {
+                alert(resp);
+                ClearData();
+                AllTopics();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+
+
+    function DeleteTopic() {
+        $.ajax({
+            url: "/api/deletetopic/" + $("#txttopic_id").val(),
+            method: "delete",
+            contentType: 'application/json',
+            success: function (r) {
+                alert(r);
+                $("#topicmodal").modal("hide");
+
+                ClearData();
+                AllTopics();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+        $("#btnupdate").show();
+        $("#btndelete").show();
+        $("#btnsubmit").hide();
+        $("#modaltitle").html("Update Topic");
+
+        $("#topicmodal").modal("show");
+
+    }
+
+    function ClearData() {
+        $("#txttopic_id").val("");
+        $("#txttopic_name").val("");
+        $("#btnsubmit").show();
+        $("#btnupdate").hide();
+        $("#btndelete").hide();
+        $("#modaltitle").html("Add Topic");
+
+    }
+</script>
+<h2>Topic</h2>
+<button class="btn btn-primary" id="btnadd"><span class="glyphicon glyphicon-plus"></span></button>
+<div class="modal fade" id="topicmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 id="modaltitle"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Topic Id</label>
+                    <input type="text" id="txttopic_id"  class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label>Topic Name</label>
+                    <input type="text" id="txttopic_name" class="form-control" />
+                </div>
+                <div class="form-group">
+                   <div class="col-md-3">
+                       <label>Content Name</label>
+
+                   </div>
+                    <div class="col-md-5">
+                        <input type="text" id="txtcontent_name" class="form-control" />
+
+                    </div>
+                    <div class="col-md-4">
+                        <input type="button" id="btnaddcontent" value="+" class="btn btn-success" />
+
+                    </div>
+                    
+                </div>
+                <div class="form-group">
+                    <ul id="contentdata"></ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" />
+                <input type="button" value="Update" id="btnupdate" class="btn btn-info" />
+                <input type="button" value="Delete" id="btndelete" class="btn btn-warning" />
+                <input  type="button" value="Close" id="btnclose" class="btn btn-danger"/>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr/>
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Sr No</th>
+            <th>Topic Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="tbldata"></tbody>
+</table>

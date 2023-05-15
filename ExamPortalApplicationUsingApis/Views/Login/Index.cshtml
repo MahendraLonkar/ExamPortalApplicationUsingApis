@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<div class="col-md-4">
+</div>
+<div class="col-md-4" style="margin-top:100px">*@
+    @using(Html.BeginForm())
+    { 
+@*<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4>Login Here</h4>
+    </div>
+    <div class="panel-body">
+
+        <div class="form-group">
+            <label>Student Code</label>
+            <input type="text" name="student_code"  class="form-control" placeholder="Enter Student Code"/>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Enter Password" />
+        </div>
+    </div>
+    <div class="panel-footer">
+        <input type="submit" value="Submit" class="btn btn-primary" />
+        <input  type="reset" value="Clear" class="btn btn-danger"/>
+        <span style="color:red">@ViewBag.msg</span>
+    </div>
+</div>*@
+//====================================================================================================================================        
+@*<div style="border: 10px solid #7b88ee">*@
+        @*<div style="border: 50px solid #7b88ee" class="row">*@
+        
+      //background-Color=  #faf8fd
+<div class="col-md-7" style="margin-top: 100px; background-color: #ffffff">
+   
+    @*<img src="~/Images/mainlogo.png" />*@
+    <img src="~/Images/student.jpg" style="width:100%;height:500px"/>
+</div>
+
+    <div class="col-md-5" style="margin-top: 100px; background-color: #ffffff;">
+        <h1 style="font-weight:bolder;font-family:'Baskerville Old Face'">Welcome To CIIT</h1>
+        <h3 style="font-weight: bolder; font-family: 'Baskerville Old Face'">Register Your Account</h3>
+        <div class="form-group" style="font-family:'Baskerville Old Face';font-size:17px">
+            <label for="email">Student Code:</label>
+            <input type="text" class="form-control" name="student_code">
+        </div>
+        <div class="form-group" style="font-family:'Baskerville Old Face';font-size:17px">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+        <div class="checkbox" style="font-family:'Baskerville Old Face';font-size:12px">
+            <label><input type="checkbox"> Remember me</label>
+        </div>
+        <button type="submit" class="btn btn-info" style="box-shadow:1px 1px gray;border-radius: 20px;border:none; width: 30%; font-family: 'Baskerville Old Face';font-size:20px;font-weight:bold">Submit</button>
+    </div>
+    }
+

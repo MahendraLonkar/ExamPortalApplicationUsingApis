@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ExamPortalApplicationUsingApis.Models.tblstudent_details>
+@{
+    ViewBag.Title = "AllStudents";
+    Layout = "~/Areas/Master/Views/Shared/MasterLayout.cshtml";
+}
+<a href="/Master/Student/AddStudent" class="btn btn-primary">Add Student</a>
+<h2>All Students</h2>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Sr No</th>
+            <th>Student Name</th>
+            <th>Email Address</th>
+            <th>Mobile Number</th>
+            <th>Student Code</th>
+            <th>Address</th>
+            <th>Photo</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int cnt = 1;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@cnt</td>
+                <td>@item.student_name</td>
+                <td>@item.email_address</td>
+                <td>@item.mobile_number</td>
+                <td>@item.student_code</td>
+                <td>@item.address</td>
+
+                <td><img src="~/Student Photos/@item.photo" height="50" width="100" /></td>
+
+            </tr>
+            cnt++;
+        }
+    </tbody>
+</table>

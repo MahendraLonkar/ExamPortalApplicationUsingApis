@@ -1,0 +1,128 @@
+﻿@model IEnumerable<ExamPortalApplicationUsingApis.Models.tblcontent_questions>
+@{
+    ViewBag.Title = "StartExam";
+    Layout = "~/Areas/Student/Views/Shared/_StudentLayout.cshtml";
+}
+<script>
+    var data = [];
+    var questionids = [];
+
+    $(document).ready(function () {
+        $("#btnsubmit").click(function () {
+            var data = [];
+
+            $(':radio:checked').each(function () {
+
+                var option = $(this).val();
+                var st = option.split("_");
+                //  alert(option)
+                var qid = st[0];
+                var op = st[1];
+                //                    alert(qid+" "+op);
+
+                var st = { "question_id": qid, "student_submitted_option": op };
+                data.push(st);
+            })
+
+
+
+
+            $.ajax({
+                url: '/Exam/SubmitExam',
+                method: 'post',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function (resp) {
+                    alert(resp);
+                    window.location.href = "/Student/Exam";
+                }
+            })
+
+        })
+
+
+
+    })
+
+    function SelectOption(qid, op) {
+        st = { "question_id": qid, "selected_option": op };
+        data.push(st);
+    }
+    function Timecountdown(timeleft) {
+
+        var interval = setInterval(countdown, 1000);
+        time();
+
+        function countdown() {
+            if (--timeleft > 0) {
+                time();
+            }
+            else {
+                clearInterval(interval);
+                time();
+                myFunction();
+            }
+        }
+
+        function myFunction() {
+
+            if (document.getElementById("btnsubmit").click()) {
+                window.location.href = "/Student/Exam";
+
+            }
+            else {
+                alert("Exam Time Over!");
+                window.location.href = "/Student/Exam";
+            }
+
+        }
+
+
+        function time() {
+            Hours = Math.floor(timeleft / 3600);
+            minutes = Math.floor((timeleft % 3600) / 60);
+            second = timeleft % 60;
+            document.getElementById('time-left').innerHTML = '' + Hours + ':' + minutes + ':' + second;
+        }
+    }
+</script>
+
+<body onload="Timecountdown(3600);">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 style="margin-left:350px">MCQ Exam</h3> Remaining Time <span id="time-left"></span>
+        </div>
+        <div class="panel-body">
+            @{
+                int i = 1;
+            }
+            @foreach (var item in Model.Take(2))
+            {
+                <div class="panel panel-primary">
+
+                    <div class="panel-body">
+                        <pre><span>@i)</span>  @Html.DisplayFor(e => item.question)</pre>
+                        @Html.HiddenFor(e => item.question_id)
+
+                        <ul class="list-group">
+                            <li class="list-group-item">@Html.RadioButton("option" + item.question_id, item.question_id + "_1") @item.option1</li>
+                            <li class="list-group-item">@Html.RadioButton("option" + item.question_id, item.question_id + "_2") @item.option2</li>
+                            <li class="list-group-item">@Html.RadioButton("option" + item.question_id, item.question_id + "_3") @item.option3</li>
+                            <li class="list-group-item">@Html.RadioButton("option" + item.question_id, item.question_id + "_4") @item.option4</li>
+                        </ul>
+                    </div>
+                </div>
+                i++;
+            }
+
+        </div>
+        <div class="panel-footer">
+
+            <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" />
+
+
+        </div>
+
+    </div>
+</body>

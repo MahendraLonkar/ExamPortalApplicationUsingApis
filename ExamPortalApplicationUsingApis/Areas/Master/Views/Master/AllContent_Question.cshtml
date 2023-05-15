@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "Content_Question";
+    Layout = "~/Areas/Master/Views/Shared/MasterLayout.cshtml";
+}
+
+<script>
+    var questions = [];
+    $(document).ready(function () {
+        AllTopics();
+        AllQuestionLevels();
+        $("#ddtopic").change(function () {
+            TopicWiseContents();
+        })
+        $("#ddcontent").change(function () {
+            ContentWiseQuestions();
+        })
+    })
+    function AllTopics() {
+        $.ajax({
+            url: "/api/topic",
+            method: "get",
+            contentType: 'application/json',
+            success: function (resp) {
+                //console.log(resp);
+                $.each(resp, function (i, d) {
+                    $("#ddtopic").append("<option value=" + d.topic_id + ">" + d.topic_name + "</option>")
+                })
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+    function AllQuestionLevels() {
+        $.ajax({
+            url: "/api/exam_level",
+            method: "get",
+            contentType: 'application/json',
+            success: function (resp) {
+                //console.log(resp);
+                $.each(resp, function (i, d) {
+                    $("#ddlevel").append("<option value=" + d.level_id + ">" + d.question_level + "</option>")
+                })
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+    function TopicWiseContents() {
+        $.ajax({
+            url: "/api/topic_wise_content/" + $("#ddtopic").val(),
+            method: "get",
+            contentType: 'application/json',
+            success: function (resp) {
+                $("#ddcontent").empty();
+                $("#ddcontent").append("<option selected disabled>Select Content</option>")
+                $.each(resp, function (i, d) {
+                    $("#ddcontent").append("<option value=" + d.content_id + ">" + d.content_name + "</option>")
+                })
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+
+    function ContentWiseQuestions() {
+        $.ajax({
+            url: "/api/content_wise_questions/" + $("#ddcontent").val(),
+            method: "get",
+            contentType: 'application/json',
+            success: function (resp) {
+                $("#dvquestions").empty();
+                $.each(resp, function (i, d) {
+                    var data = "<div class='panel panel-primary'>";
+                    data += "<div class='panel-heading'>" + d.question + "</div>";
+                    data += "<div class='panel-body'>";
+                    data += "<ul>";
+                    data += "<li><xmp>" + d.option1 + "</xmp></li>"
+                    data += "<li><xmp>" + d.option2 + "</xmp></li>"
+                    data += "<li><xmp>" + d.option3 + "</xmp></li>"
+                    data += "<li><xmp>" + d.option4 + "</xmp></li>"
+                    data += "<li> Correct Option - <b>" + d.correct_option_number + "</b></li>"
+                    data += "</ul>";
+
+                    data += "</div></div>";
+
+                    $("#dvquestions").append(data);
+                })
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+    
+</script>
+
+<a href="/Master/Master/Content_Question" class="btn btn-primary">Add Question</a>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Select Topic</label>
+            <select id="ddtopic" class="form-control">
+                <option selected disabled>Select Topic</option>
+            </select>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Select Content</label>
+            <select id="ddcontent" class="form-control">
+                <option selected disabled>Select Content</option>
+            </select>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Select Level</label>
+            <select id="ddlevel" class="form-control">
+                <option selected disabled>Select Question Level</option>
+            </select>
+
+        </div>
+    </div>
+</div>
+<hr />
+<h4>Content Questions</h4>
+ <div class="row" id="dvquestions"></div>

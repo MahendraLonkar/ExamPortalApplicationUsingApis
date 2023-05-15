@@ -1,0 +1,160 @@
+﻿@{
+    ViewBag.Title = "Content_Question";
+    Layout = "~/Areas/Master/Views/Shared/MasterLayout.cshtml";
+}
+
+<script>
+    var questions = [];
+    $(document).ready(function () {
+        AllTopics();
+
+        $("#ddtopic").change(function () {
+            TopicWiseContents();
+        })
+        $("#btnadd").click(function () {
+            AddQuestion();
+        })
+        $("#btnsubmit").click(function () {
+            SubmitQuestions();
+        })
+    })
+    function AllTopics() {
+        $.ajax({
+            url: "/api/topic",
+            method: "get",
+            contentType: 'application/json',
+            success: function (resp) {
+                //console.log(resp);
+                $.each(resp, function (i, d) {
+                    $("#ddtopic").append("<option value=" + d.topic_id + ">" + d.topic_name + "</option>")
+                })
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+
+    function TopicWiseContents() {
+        $.ajax({
+            url: "/api/topic_wise_content/" + $("#ddtopic").val(),
+            method: "get",
+            contentType: 'application/json',
+            success: function (resp) {
+                $("#ddcontent").empty();
+                $("#ddcontent").append("<option selected disabled>Select Content</option>")
+                $.each(resp, function (i, d) {
+                    $("#ddcontent").append("<option value=" + d.content_id + ">" + d.content_name + "</option>")
+                })
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+
+    function AddQuestion() {
+        var q = $("#txtquestion").val();
+        var ans = $("#answer").val();
+        var cid = $("#ddcontent").val();
+        var st = { "content_id": cid,   "question": q, "answer": ans};
+        questions.push(st);
+        DisplayQuestions();
+    }
+    function DisplayQuestions() {
+        $("#tbldata").empty();
+        $.each(questions, function (i, d) {
+            $("#tbldata").append("<tr><td>" + (i + 1) + "</td><td>" + d.question + "</td><td>" + d.answer + "</td><td>" + d.content_id + "</td></tr>");
+
+        })
+    }
+
+    function SubmitQuestions() {
+        $.ajax({
+            url: "/api/interview_question",
+            method: "post",
+            data: JSON.stringify(questions),
+            contentType: 'application/json',
+            success: function (resp) {
+
+                alert(resp);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+</script>
+
+<a href="/Master/Master/AllContent_Question" class="btn btn-primary">View All Questions</a>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Select Topic</label>
+            <select id="ddtopic" class="form-control">
+                <option selected disabled>Select Topic</option>
+            </select>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Select Content</label>
+            <select id="ddcontent" class="form-control">
+                <option selected disabled>Select Content</option>
+            </select>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <textarea class="form-control" id="txtquestion" placeholder="Enter Question"></textarea>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <textarea class="form-control" id="answer" placeholder="Enter answer here"></textarea>
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <button class="btn btn-primary" id="btnadd"><span class="glyphicon glyphicon-plus"></span></button>
+    </div>
+    <div class="col-md-4">
+        <input type="button" id="btnsubmit" value="Submit Questions" class="btn btn-info" />
+    </div>
+</div>
+<div class="row">
+    <hr />
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Content </th>
+
+
+
+            </tr>
+        </thead>
+        <tbody id="tbldata"></tbody>
+    </table>
+</div>

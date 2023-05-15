@@ -1,0 +1,79 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MasterLayout</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script>
+        $(document).on({
+            "contextmenu": function (e) {
+                console.log("ctx menu button:", e.which);
+
+                // Stop the context menu
+                e.preventDefault();
+            },
+            "mousedown": function (e) {
+                console.log("normal mouse down:", e.which);
+            },
+            "mouseup": function (e) {
+                console.log("normal mouse up:", e.which);
+            }
+        });
+
+    </script>
+</head>
+<body>
+    <div class="" style="margin-bottom: 0px; border:none">
+        <nav class="navbar navbar-inverse" style="background-color: #222d32; margin-bottom: 0px; border: none;border-radius:0px">
+            <div class="navbar-header">
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">Exam Portal - Admin
+                </a>
+            </div>
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+               
+                <ul class="nav navbar-nav navbar-right">
+                   <li><a>Hello @Session["student_code"].ToString()</a></li>
+                    <li><a href="/Logout">Log Out</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="">
+        <div class="col-md-3" style="background-color: #222d32; border: none; border-radius: 0px;height:700px;display:block;position:static">
+            <br /><br />
+            <h4 style="color:white">Student Section</h4>
+            <ul class="list-group" style="background-color: #222d32; margin-bottom: 0px; border: none;border-radius:0px">
+                <li class="list-group-item"><a href="/Master/Master/Index">Dashboard</a></li>
+                <li class="list-group-item"><a href="/Master/Student/AllStudents">All Student </a></li>
+                <li class="list-group-item"><a href="/Master/Student/AllExams">All Exams</a></li>
+            </ul>
+            <hr />
+            <h4 style="color:white">Master Seciton</h4>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="/Master/Master/Topic">Topic</a></li>
+                <li class="list-group-item"><a href="/Master/Master/Content">Content</a></li>
+                <li class="list-group-item"><a href="/Master/Master/AllContent_Question">Content Question</a></li>
+                <li class="list-group-item"><a href="/Master/Master/Question_Level">Question Level</a></li>
+                <li class="list-group-item"><a href="/Master/Master/Role">Role</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+
+</body>
+</html>

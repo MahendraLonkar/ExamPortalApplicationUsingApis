@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ExamPortalApplicationUsingApis.Areas.Student.Models.StudentExamModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Student/Views/Shared/_StudentLayout.cshtml";
+}
+
+<a href="/Student/Exam/Select_Topic" class="btn btn-primary">Give Exam</a>
+<h3>Given Exams</h3>
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Exam Date</th>
+                <th>Topic Name</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Total Questions</th>
+                <th>Correct Questions</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ 
+                int i = 1;
+            }
+            @foreach(var item in Model)
+            {
+            <tr>
+                <td>@i</td>
+                <td>@item.exam_date.ToShortDateString()</td>
+                <td>@item.topic_id</td>
+                <td>@item.start_time.ToLongTimeString()</td>
+                <td>@item.end_time.ToLongTimeString()</td>
+                <td>@item.total_attempted_questions</td>
+                <td>@item.total_correct_questions</td>
+                <td><a href="/Student/Exam/Exam_Details/@item.exam_id">Detail</a></td>
+            </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>

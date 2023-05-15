@@ -1,0 +1,72 @@
+﻿@model ExamPortalApplicationUsingApis.Areas.Student.Models.StudentExamModel
+@{
+    ViewBag.Title = "Exam_Details";
+    Layout = "~/Areas/Student/Views/Shared/_StudentLayout.cshtml";
+}
+<div>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td style="width:25%">Topic Name:</td>
+                <th>@Model.topic_name</th>
+            </tr>
+            <tr>
+                <td>Start Time:</td>
+                <th>@Model.start_time.ToShortTimeString()</th>
+            </tr>
+            <tr>
+                <td>End Time:</td>
+                <th>@Model.end_time.ToShortTimeString()</th>
+            </tr>
+
+            <tr>
+                <td>Total Questions:</td>
+                <th>@Model.total_attempted_questions</th>
+            </tr>
+            <tr>
+                <td>Correct Questions:</td>
+                <th>@Model.total_correct_questions</th>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    @foreach (var item in Model.studentanswers)
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <b>@item.question</b>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">1) @item.option1</li>
+                    <li class="list-group-item">2) @item.option2</li>
+                    <li class="list-group-item">3) @item.option3</li>
+                    <li class="list-group-item">4) @item.option4</li>
+                </ul>
+
+
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        @{ 
+                            string color = "Green";
+                            if(item.status=="Wrong")
+                            {
+                                color = "Red";
+                            }
+                        }
+                        Status : <b style="color:@color">@item.status</b>
+                    </div>
+
+                        <div class="col-md-4">
+                            Correct Option : <b>@item.correct_option_number</b>
+                        </div>
+                        <div class="col-md-4">
+                            Your Option : <b>@item.student_submitted_option_number</b>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    }
+</div>
+

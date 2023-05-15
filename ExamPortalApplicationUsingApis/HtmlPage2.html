@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        .democlass{
+            color:blue;
+
+        }
+        .divclass{
+            height:200px
+        }
+
+    </style>
+</head>
+<body>
+    <div class="divclass" id="dv">
+
+        <a class="democlass" id="1">
+            <span style="color:yellow">First</span>
+        </a>
+        <br />
+        <a class="democlass">
+            <span style="color:yellow">Second</span>
+
+        </a>
+        <b></b>
+        <br/>
+        <a class="democlass">
+            <span style="color:yellow">Third</span>
+
+        </a>
+        <a class="democlass">
+            <span style="color:yellow">Fourth</span>
+
+        </a>
+        <a class="democlass">
+            <span style="color:yellow">Fifth</span>
+
+        </a>
+    </div>
+    <input  type="button" value="Next" onclick="Next()"/>
+
+    <script>
+        var d = document.getElementById("dv").children;
+        console.log(d[0].id)
+        var i=0;
+        if (d[i].tagName == "A")
+        {
+//            d[i].style = "color:red"
+            sp = d[i].children;
+            console.log(sp)
+            sp[0].style = "color:red"
+
+        }   
+        else {
+            alert(d[i].tagName)
+        }
+
+        function Next(){
+            i++;
+            if (d[i].tagName == "A") {
+
+               // d[i].style = "color:red"
+
+                sp = d[i].children;
+
+                sp[0].style = "color:red"
+            }
+            else {
+                Next();
+            }
+
+
+
+        }
+
+    </script>
+
+</body>
+</html>

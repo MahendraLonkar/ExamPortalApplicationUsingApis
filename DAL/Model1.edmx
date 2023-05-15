@@ -1,0 +1,1062 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CIIT_CRMDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbladmin_details">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblcontent_questions">
+          <Key>
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="question_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="content_id" Type="int" />
+          <Property Name="question" Type="varchar(max)" />
+          <Property Name="option1" Type="varchar(max)" />
+          <Property Name="option2" Type="varchar(max)" />
+          <Property Name="option3" Type="varchar(max)" />
+          <Property Name="option4" Type="varchar(max)" />
+          <Property Name="correct_option_number" Type="int" />
+          <Property Name="level_id" Type="int" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tblemployee_details">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employee_name" Type="varchar" MaxLength="100" />
+          <Property Name="user_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" />
+          <Property Name="mobile_number" Type="varchar" MaxLength="100" />
+          <Property Name="email_address" Type="varchar" MaxLength="100" />
+          <Property Name="role_id" Type="int" />
+        </EntityType>
+        <EntityType Name="tblinterview_questions">
+          <Key>
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="question_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="content_id" Type="int" />
+          <Property Name="question" Type="varchar(max)" />
+          <Property Name="flag" Type="int" />
+          <Property Name="answer" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tbllevels">
+          <Key>
+            <PropertyRef Name="level_id" />
+          </Key>
+          <Property Name="level_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="question_level" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblroles">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tblstudent_details">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="student_name" Type="varchar" MaxLength="100" />
+          <Property Name="email_address" Type="varchar" MaxLength="100" />
+          <Property Name="mobile_number" Type="varchar" MaxLength="100" />
+          <Property Name="student_code" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" />
+          <Property Name="photo" Type="varchar" MaxLength="100" />
+          <Property Name="address" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblstudent_exam_details">
+          <Key>
+            <PropertyRef Name="exam_id" />
+          </Key>
+          <Property Name="exam_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="student_id" Type="int" />
+          <Property Name="exam_date" Type="date" />
+          <Property Name="start_time" Type="datetime" />
+          <Property Name="end_time" Type="datetime" />
+          <Property Name="status" Type="varchar" MaxLength="100" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tblstudent_exam_questions">
+          <Key>
+            <PropertyRef Name="exam_question_id" />
+          </Key>
+          <Property Name="exam_question_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="exam_id" Type="int" />
+          <Property Name="question_id" Type="int" />
+          <Property Name="student_submitted_option" Type="int" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tbltopic_contents">
+          <Key>
+            <PropertyRef Name="content_id" />
+          </Key>
+          <Property Name="content_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="content_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="topic_id" Type="int" />
+          <Property Name="flag" Type="int" />
+          <Property Name="video_url" Type="varchar" MaxLength="100" />
+          <Property Name="ppts" Type="varchar(max)" />
+          <Property Name="description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tbltopics">
+          <Key>
+            <PropertyRef Name="topic_id" />
+          </Key>
+          <Property Name="topic_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="topic_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CIIT_CRMDB.exam.vw_content_Questions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_content_Questions">
+          <Key>
+            <PropertyRef Name="question_id" />
+            <PropertyRef Name="content_id" />
+            <PropertyRef Name="content_name" />
+            <PropertyRef Name="topic_id" />
+            <PropertyRef Name="topic_name" />
+            <PropertyRef Name="level_id" />
+            <PropertyRef Name="question_level" />
+          </Key>
+          <Property Name="question_id" Type="int" Nullable="false" />
+          <Property Name="question" Type="varchar(max)" />
+          <Property Name="option1" Type="varchar(max)" />
+          <Property Name="option2" Type="varchar(max)" />
+          <Property Name="option3" Type="varchar(max)" />
+          <Property Name="option4" Type="varchar(max)" />
+          <Property Name="correct_option_number" Type="int" />
+          <Property Name="content_id" Type="int" Nullable="false" />
+          <Property Name="content_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="topic_id" Type="int" Nullable="false" />
+          <Property Name="topic_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="level_id" Type="int" Nullable="false" />
+          <Property Name="question_level" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CIIT_CRMDB.exam.vw_exam_details' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_exam_details">
+          <Key>
+            <PropertyRef Name="exam_id" />
+            <PropertyRef Name="student_id" />
+            <PropertyRef Name="student_code" />
+            <PropertyRef Name="exam_question_id" />
+          </Key>
+          <Property Name="exam_id" Type="int" Nullable="false" />
+          <Property Name="exam_date" Type="date" />
+          <Property Name="start_time" Type="datetime" />
+          <Property Name="end_time" Type="datetime" />
+          <Property Name="student_id" Type="int" Nullable="false" />
+          <Property Name="student_name" Type="varchar" MaxLength="100" />
+          <Property Name="student_code" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="exam_question_id" Type="int" Nullable="false" />
+          <Property Name="student_submitted_option" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CIIT_CRMDB.exam.vw_exam_questions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_exam_questions">
+          <Key>
+            <PropertyRef Name="exam_question_id" />
+            <PropertyRef Name="exam_id" />
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="exam_question_id" Type="int" Nullable="false" />
+          <Property Name="exam_id" Type="int" Nullable="false" />
+          <Property Name="question_id" Type="int" Nullable="false" />
+          <Property Name="student_submitted_option" Type="int" />
+          <Property Name="question" Type="varchar(max)" />
+          <Property Name="exam_date" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CIIT_CRMDB.exam.vw_Level_Questions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_Level_Questions">
+          <Key>
+            <PropertyRef Name="level_id" />
+            <PropertyRef Name="question_level" />
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="level_id" Type="int" Nullable="false" />
+          <Property Name="question_level" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="question_id" Type="int" Nullable="false" />
+          <Property Name="question" Type="varchar(max)" />
+          <Property Name="correct_option_number" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CIIT_CRMDB.exam.vw_student_details' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_student_details">
+          <Key>
+            <PropertyRef Name="student_id" />
+            <PropertyRef Name="student_code" />
+            <PropertyRef Name="exam_id" />
+          </Key>
+          <Property Name="student_id" Type="int" Nullable="false" />
+          <Property Name="student_name" Type="varchar" MaxLength="100" />
+          <Property Name="email_address" Type="varchar" MaxLength="100" />
+          <Property Name="mobile_number" Type="varchar" MaxLength="100" />
+          <Property Name="student_code" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" />
+          <Property Name="photo" Type="varchar" MaxLength="100" />
+          <Property Name="address" Type="varchar" MaxLength="100" />
+          <Property Name="exam_id" Type="int" Nullable="false" />
+          <Property Name="exam_date" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CIIT_CRMDB.exam.vw_topic_contents' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_topic_contents">
+          <Key>
+            <PropertyRef Name="content_id" />
+            <PropertyRef Name="content_name" />
+            <PropertyRef Name="topic_id" />
+            <PropertyRef Name="topic_name" />
+          </Key>
+          <Property Name="content_id" Type="int" Nullable="false" />
+          <Property Name="content_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="topic_id" Type="int" Nullable="false" />
+          <Property Name="topic_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="video_url" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="fkcontentdkjf">
+          <End Role="tbltopic_contents" Type="Self.tbltopic_contents" Multiplicity="0..1" />
+          <End Role="tblinterview_questions" Type="Self.tblinterview_questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltopic_contents">
+              <PropertyRef Name="content_id" />
+            </Principal>
+            <Dependent Role="tblinterview_questions">
+              <PropertyRef Name="content_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkcontentId">
+          <End Role="tbltopic_contents" Type="Self.tbltopic_contents" Multiplicity="0..1" />
+          <End Role="tblcontent_questions" Type="Self.tblcontent_questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltopic_contents">
+              <PropertyRef Name="content_id" />
+            </Principal>
+            <Dependent Role="tblcontent_questions">
+              <PropertyRef Name="content_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fklevelid">
+          <End Role="tbllevels" Type="Self.tbllevels" Multiplicity="0..1" />
+          <End Role="tblcontent_questions" Type="Self.tblcontent_questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbllevels">
+              <PropertyRef Name="level_id" />
+            </Principal>
+            <Dependent Role="tblcontent_questions">
+              <PropertyRef Name="level_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkroleid">
+          <End Role="tblroles" Type="Self.tblroles" Multiplicity="0..1" />
+          <End Role="tblemployee_details" Type="Self.tblemployee_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblroles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="tblemployee_details">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkstdfudsdfentid">
+          <End Role="tblcontent_questions" Type="Self.tblcontent_questions" Multiplicity="0..1" />
+          <End Role="tblstudent_exam_questions" Type="Self.tblstudent_exam_questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblcontent_questions">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="tblstudent_exam_questions">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkstdfudxgdentid">
+          <End Role="tblstudent_exam_details" Type="Self.tblstudent_exam_details" Multiplicity="0..1" />
+          <End Role="tblstudent_exam_questions" Type="Self.tblstudent_exam_questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblstudent_exam_details">
+              <PropertyRef Name="exam_id" />
+            </Principal>
+            <Dependent Role="tblstudent_exam_questions">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkstudentid">
+          <End Role="tblstudent_details" Type="Self.tblstudent_details" Multiplicity="0..1" />
+          <End Role="tblstudent_exam_details" Type="Self.tblstudent_exam_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblstudent_details">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="tblstudent_exam_details">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fktopicId">
+          <End Role="tbltopics" Type="Self.tbltopics" Multiplicity="0..1" />
+          <End Role="tbltopic_contents" Type="Self.tbltopic_contents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltopics">
+              <PropertyRef Name="topic_id" />
+            </Principal>
+            <Dependent Role="tbltopic_contents">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CIIT_CRMDBModelStoreContainer">
+          <EntitySet Name="tbladmin_details" EntityType="Self.tbladmin_details" Schema="exam" store:Type="Tables" />
+          <EntitySet Name="tblcontent_questions" EntityType="Self.tblcontent_questions" Schema="exam" store:Type="Tables" />
+          <EntitySet Name="tblemployee_details" EntityType="Self.tblemployee_details" Schema="exam" store:Type="Tables" />
+          <EntitySet Name="tblinterview_questions" EntityType="Self.tblinterview_questions" Schema="exam" store:Type="Tables" />
+          <EntitySet Name="tbllevels" EntityType="Self.tbllevels" Schema="exam" store:Type="Tables" />
+          <EntitySet Name="tblroles" EntityType="Self.tblroles" Schema="exam" store:Type="Tables" />
+          <EntitySet Name="tblstudent_details" EntityType="Self.tblstudent_details" Schema="exam" store:Type="Tables" />
+          <EntitySet Name="tblstudent_exam_details" EntityType="Self.tblstudent_exam_details" Schema="exam" store:Type="Tables" />
+          <EntitySet Name="tblstudent_exam_questions" EntityType="Self.tblstudent_exam_questions" Schema="exam" store:Type="Tables" />
+          <EntitySet Name="tbltopic_contents" EntityType="Self.tbltopic_contents" Schema="exam" store:Type="Tables" />
+          <EntitySet Name="tbltopics" EntityType="Self.tbltopics" Schema="exam" store:Type="Tables" />
+          <EntitySet Name="vw_content_Questions" EntityType="Self.vw_content_Questions" store:Type="Views" store:Schema="exam">
+            <DefiningQuery>SELECT 
+    [vw_content_Questions].[question_id] AS [question_id], 
+    [vw_content_Questions].[question] AS [question], 
+    [vw_content_Questions].[option1] AS [option1], 
+    [vw_content_Questions].[option2] AS [option2], 
+    [vw_content_Questions].[option3] AS [option3], 
+    [vw_content_Questions].[option4] AS [option4], 
+    [vw_content_Questions].[correct_option_number] AS [correct_option_number], 
+    [vw_content_Questions].[content_id] AS [content_id], 
+    [vw_content_Questions].[content_name] AS [content_name], 
+    [vw_content_Questions].[topic_id] AS [topic_id], 
+    [vw_content_Questions].[topic_name] AS [topic_name], 
+    [vw_content_Questions].[level_id] AS [level_id], 
+    [vw_content_Questions].[question_level] AS [question_level]
+    FROM [exam].[vw_content_Questions] AS [vw_content_Questions]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_exam_details" EntityType="Self.vw_exam_details" store:Type="Views" store:Schema="exam">
+            <DefiningQuery>SELECT 
+    [vw_exam_details].[exam_id] AS [exam_id], 
+    [vw_exam_details].[exam_date] AS [exam_date], 
+    [vw_exam_details].[start_time] AS [start_time], 
+    [vw_exam_details].[end_time] AS [end_time], 
+    [vw_exam_details].[student_id] AS [student_id], 
+    [vw_exam_details].[student_name] AS [student_name], 
+    [vw_exam_details].[student_code] AS [student_code], 
+    [vw_exam_details].[exam_question_id] AS [exam_question_id], 
+    [vw_exam_details].[student_submitted_option] AS [student_submitted_option]
+    FROM [exam].[vw_exam_details] AS [vw_exam_details]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_exam_questions" EntityType="Self.vw_exam_questions" store:Type="Views" store:Schema="exam">
+            <DefiningQuery>SELECT 
+    [vw_exam_questions].[exam_question_id] AS [exam_question_id], 
+    [vw_exam_questions].[exam_id] AS [exam_id], 
+    [vw_exam_questions].[question_id] AS [question_id], 
+    [vw_exam_questions].[student_submitted_option] AS [student_submitted_option], 
+    [vw_exam_questions].[question] AS [question], 
+    [vw_exam_questions].[exam_date] AS [exam_date]
+    FROM [exam].[vw_exam_questions] AS [vw_exam_questions]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_Level_Questions" EntityType="Self.vw_Level_Questions" store:Type="Views" store:Schema="exam">
+            <DefiningQuery>SELECT 
+    [vw_Level_Questions].[level_id] AS [level_id], 
+    [vw_Level_Questions].[question_level] AS [question_level], 
+    [vw_Level_Questions].[question_id] AS [question_id], 
+    [vw_Level_Questions].[question] AS [question], 
+    [vw_Level_Questions].[correct_option_number] AS [correct_option_number]
+    FROM [exam].[vw_Level_Questions] AS [vw_Level_Questions]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_student_details" EntityType="Self.vw_student_details" store:Type="Views" store:Schema="exam">
+            <DefiningQuery>SELECT 
+    [vw_student_details].[student_id] AS [student_id], 
+    [vw_student_details].[student_name] AS [student_name], 
+    [vw_student_details].[email_address] AS [email_address], 
+    [vw_student_details].[mobile_number] AS [mobile_number], 
+    [vw_student_details].[student_code] AS [student_code], 
+    [vw_student_details].[password] AS [password], 
+    [vw_student_details].[photo] AS [photo], 
+    [vw_student_details].[address] AS [address], 
+    [vw_student_details].[exam_id] AS [exam_id], 
+    [vw_student_details].[exam_date] AS [exam_date]
+    FROM [exam].[vw_student_details] AS [vw_student_details]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_topic_contents" EntityType="Self.vw_topic_contents" store:Type="Views" store:Schema="exam">
+            <DefiningQuery>SELECT 
+    [vw_topic_contents].[content_id] AS [content_id], 
+    [vw_topic_contents].[content_name] AS [content_name], 
+    [vw_topic_contents].[topic_id] AS [topic_id], 
+    [vw_topic_contents].[topic_name] AS [topic_name], 
+    [vw_topic_contents].[video_url] AS [video_url]
+    FROM [exam].[vw_topic_contents] AS [vw_topic_contents]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fkcontentdkjf" Association="Self.fkcontentdkjf">
+            <End Role="tbltopic_contents" EntitySet="tbltopic_contents" />
+            <End Role="tblinterview_questions" EntitySet="tblinterview_questions" />
+          </AssociationSet>
+          <AssociationSet Name="fkcontentId" Association="Self.fkcontentId">
+            <End Role="tbltopic_contents" EntitySet="tbltopic_contents" />
+            <End Role="tblcontent_questions" EntitySet="tblcontent_questions" />
+          </AssociationSet>
+          <AssociationSet Name="fklevelid" Association="Self.fklevelid">
+            <End Role="tbllevels" EntitySet="tbllevels" />
+            <End Role="tblcontent_questions" EntitySet="tblcontent_questions" />
+          </AssociationSet>
+          <AssociationSet Name="fkroleid" Association="Self.fkroleid">
+            <End Role="tblroles" EntitySet="tblroles" />
+            <End Role="tblemployee_details" EntitySet="tblemployee_details" />
+          </AssociationSet>
+          <AssociationSet Name="fkstdfudsdfentid" Association="Self.fkstdfudsdfentid">
+            <End Role="tblcontent_questions" EntitySet="tblcontent_questions" />
+            <End Role="tblstudent_exam_questions" EntitySet="tblstudent_exam_questions" />
+          </AssociationSet>
+          <AssociationSet Name="fkstdfudxgdentid" Association="Self.fkstdfudxgdentid">
+            <End Role="tblstudent_exam_details" EntitySet="tblstudent_exam_details" />
+            <End Role="tblstudent_exam_questions" EntitySet="tblstudent_exam_questions" />
+          </AssociationSet>
+          <AssociationSet Name="fkstudentid" Association="Self.fkstudentid">
+            <End Role="tblstudent_details" EntitySet="tblstudent_details" />
+            <End Role="tblstudent_exam_details" EntitySet="tblstudent_exam_details" />
+          </AssociationSet>
+          <AssociationSet Name="fktopicId" Association="Self.fktopicId">
+            <End Role="tbltopics" EntitySet="tbltopics" />
+            <End Role="tbltopic_contents" EntitySet="tbltopic_contents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CIIT_CRMDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbladmin_details">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblcontent_questions">
+          <Key>
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="question_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="content_id" Type="Int32" />
+          <Property Name="question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="option1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="option2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="option3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="option4" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="correct_option_number" Type="Int32" />
+          <Property Name="level_id" Type="Int32" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tbltopic_contents" Relationship="Self.fkcontentId" FromRole="tblcontent_questions" ToRole="tbltopic_contents" />
+          <NavigationProperty Name="tbllevel" Relationship="Self.fklevelid" FromRole="tblcontent_questions" ToRole="tbllevels" />
+          <NavigationProperty Name="tblstudent_exam_questions" Relationship="Self.fkstdfudsdfentid" FromRole="tblcontent_questions" ToRole="tblstudent_exam_questions" />
+        </EntityType>
+        <EntityType Name="tblemployee_details">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employee_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="user_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="mobile_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="role_id" Type="Int32" />
+          <NavigationProperty Name="tblrole" Relationship="Self.fkroleid" FromRole="tblemployee_details" ToRole="tblroles" />
+        </EntityType>
+        <EntityType Name="tblinterview_questions">
+          <Key>
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="question_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="content_id" Type="Int32" />
+          <Property Name="question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="flag" Type="Int32" />
+          <Property Name="answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbltopic_contents" Relationship="Self.fkcontentdkjf" FromRole="tblinterview_questions" ToRole="tbltopic_contents" />
+        </EntityType>
+        <EntityType Name="tbllevel">
+          <Key>
+            <PropertyRef Name="level_id" />
+          </Key>
+          <Property Name="level_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question_level" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblcontent_questions" Relationship="Self.fklevelid" FromRole="tbllevels" ToRole="tblcontent_questions" />
+        </EntityType>
+        <EntityType Name="tblrole">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tblemployee_details" Relationship="Self.fkroleid" FromRole="tblroles" ToRole="tblemployee_details" />
+        </EntityType>
+        <EntityType Name="tblstudent_details">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="student_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="mobile_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="student_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblstudent_exam_details" Relationship="Self.fkstudentid" FromRole="tblstudent_details" ToRole="tblstudent_exam_details" />
+        </EntityType>
+        <EntityType Name="tblstudent_exam_details">
+          <Key>
+            <PropertyRef Name="exam_id" />
+          </Key>
+          <Property Name="exam_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="student_id" Type="Int32" />
+          <Property Name="exam_date" Type="DateTime" Precision="0" />
+          <Property Name="start_time" Type="DateTime" Precision="3" />
+          <Property Name="end_time" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tblstudent_details" Relationship="Self.fkstudentid" FromRole="tblstudent_exam_details" ToRole="tblstudent_details" />
+          <NavigationProperty Name="tblstudent_exam_questions" Relationship="Self.fkstdfudxgdentid" FromRole="tblstudent_exam_details" ToRole="tblstudent_exam_questions" />
+        </EntityType>
+        <EntityType Name="tblstudent_exam_questions">
+          <Key>
+            <PropertyRef Name="exam_question_id" />
+          </Key>
+          <Property Name="exam_question_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="exam_id" Type="Int32" />
+          <Property Name="question_id" Type="Int32" />
+          <Property Name="student_submitted_option" Type="Int32" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tblcontent_questions" Relationship="Self.fkstdfudsdfentid" FromRole="tblstudent_exam_questions" ToRole="tblcontent_questions" />
+          <NavigationProperty Name="tblstudent_exam_details" Relationship="Self.fkstdfudxgdentid" FromRole="tblstudent_exam_questions" ToRole="tblstudent_exam_details" />
+        </EntityType>
+        <EntityType Name="tbltopic_contents">
+          <Key>
+            <PropertyRef Name="content_id" />
+          </Key>
+          <Property Name="content_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="content_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="topic_id" Type="Int32" />
+          <Property Name="flag" Type="Int32" />
+          <Property Name="video_url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ppts" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblcontent_questions" Relationship="Self.fkcontentId" FromRole="tbltopic_contents" ToRole="tblcontent_questions" />
+          <NavigationProperty Name="tblinterview_questions" Relationship="Self.fkcontentdkjf" FromRole="tbltopic_contents" ToRole="tblinterview_questions" />
+          <NavigationProperty Name="tbltopic" Relationship="Self.fktopicId" FromRole="tbltopic_contents" ToRole="tbltopics" />
+        </EntityType>
+        <EntityType Name="tbltopic">
+          <Key>
+            <PropertyRef Name="topic_id" />
+          </Key>
+          <Property Name="topic_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="topic_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tbltopic_contents" Relationship="Self.fktopicId" FromRole="tbltopics" ToRole="tbltopic_contents" />
+        </EntityType>
+        <EntityType Name="vw_content_Questions">
+          <Key>
+            <PropertyRef Name="question_id" />
+            <PropertyRef Name="content_id" />
+            <PropertyRef Name="content_name" />
+            <PropertyRef Name="topic_id" />
+            <PropertyRef Name="topic_name" />
+            <PropertyRef Name="level_id" />
+            <PropertyRef Name="question_level" />
+          </Key>
+          <Property Name="question_id" Type="Int32" Nullable="false" />
+          <Property Name="question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="option1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="option2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="option3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="option4" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="correct_option_number" Type="Int32" />
+          <Property Name="content_id" Type="Int32" Nullable="false" />
+          <Property Name="content_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="topic_id" Type="Int32" Nullable="false" />
+          <Property Name="topic_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="level_id" Type="Int32" Nullable="false" />
+          <Property Name="question_level" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vw_exam_details">
+          <Key>
+            <PropertyRef Name="exam_id" />
+            <PropertyRef Name="student_id" />
+            <PropertyRef Name="student_code" />
+            <PropertyRef Name="exam_question_id" />
+          </Key>
+          <Property Name="exam_id" Type="Int32" Nullable="false" />
+          <Property Name="exam_date" Type="DateTime" Precision="0" />
+          <Property Name="start_time" Type="DateTime" Precision="3" />
+          <Property Name="end_time" Type="DateTime" Precision="3" />
+          <Property Name="student_id" Type="Int32" Nullable="false" />
+          <Property Name="student_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="student_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="exam_question_id" Type="Int32" Nullable="false" />
+          <Property Name="student_submitted_option" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vw_exam_questions">
+          <Key>
+            <PropertyRef Name="exam_question_id" />
+            <PropertyRef Name="exam_id" />
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="exam_question_id" Type="Int32" Nullable="false" />
+          <Property Name="exam_id" Type="Int32" Nullable="false" />
+          <Property Name="question_id" Type="Int32" Nullable="false" />
+          <Property Name="student_submitted_option" Type="Int32" />
+          <Property Name="question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="exam_date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="vw_Level_Questions">
+          <Key>
+            <PropertyRef Name="level_id" />
+            <PropertyRef Name="question_level" />
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="level_id" Type="Int32" Nullable="false" />
+          <Property Name="question_level" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="question_id" Type="Int32" Nullable="false" />
+          <Property Name="question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="correct_option_number" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vw_student_details">
+          <Key>
+            <PropertyRef Name="student_id" />
+            <PropertyRef Name="student_code" />
+            <PropertyRef Name="exam_id" />
+          </Key>
+          <Property Name="student_id" Type="Int32" Nullable="false" />
+          <Property Name="student_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="mobile_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="student_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="exam_id" Type="Int32" Nullable="false" />
+          <Property Name="exam_date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="vw_topic_contents">
+          <Key>
+            <PropertyRef Name="content_id" />
+            <PropertyRef Name="content_name" />
+            <PropertyRef Name="topic_id" />
+            <PropertyRef Name="topic_name" />
+          </Key>
+          <Property Name="content_id" Type="Int32" Nullable="false" />
+          <Property Name="content_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="topic_id" Type="Int32" Nullable="false" />
+          <Property Name="topic_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="video_url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="fkcontentId">
+          <End Role="tbltopic_contents" Type="Self.tbltopic_contents" Multiplicity="0..1" />
+          <End Role="tblcontent_questions" Type="Self.tblcontent_questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltopic_contents">
+              <PropertyRef Name="content_id" />
+            </Principal>
+            <Dependent Role="tblcontent_questions">
+              <PropertyRef Name="content_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fklevelid">
+          <End Role="tbllevels" Type="Self.tbllevel" Multiplicity="0..1" />
+          <End Role="tblcontent_questions" Type="Self.tblcontent_questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbllevels">
+              <PropertyRef Name="level_id" />
+            </Principal>
+            <Dependent Role="tblcontent_questions">
+              <PropertyRef Name="level_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkstdfudsdfentid">
+          <End Role="tblcontent_questions" Type="Self.tblcontent_questions" Multiplicity="0..1" />
+          <End Role="tblstudent_exam_questions" Type="Self.tblstudent_exam_questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblcontent_questions">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="tblstudent_exam_questions">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkroleid">
+          <End Role="tblroles" Type="Self.tblrole" Multiplicity="0..1" />
+          <End Role="tblemployee_details" Type="Self.tblemployee_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblroles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="tblemployee_details">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkcontentdkjf">
+          <End Role="tbltopic_contents" Type="Self.tbltopic_contents" Multiplicity="0..1" />
+          <End Role="tblinterview_questions" Type="Self.tblinterview_questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltopic_contents">
+              <PropertyRef Name="content_id" />
+            </Principal>
+            <Dependent Role="tblinterview_questions">
+              <PropertyRef Name="content_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkstudentid">
+          <End Role="tblstudent_details" Type="Self.tblstudent_details" Multiplicity="0..1" />
+          <End Role="tblstudent_exam_details" Type="Self.tblstudent_exam_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblstudent_details">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="tblstudent_exam_details">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkstdfudxgdentid">
+          <End Role="tblstudent_exam_details" Type="Self.tblstudent_exam_details" Multiplicity="0..1" />
+          <End Role="tblstudent_exam_questions" Type="Self.tblstudent_exam_questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblstudent_exam_details">
+              <PropertyRef Name="exam_id" />
+            </Principal>
+            <Dependent Role="tblstudent_exam_questions">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fktopicId">
+          <End Role="tbltopics" Type="Self.tbltopic" Multiplicity="0..1" />
+          <End Role="tbltopic_contents" Type="Self.tbltopic_contents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltopics">
+              <PropertyRef Name="topic_id" />
+            </Principal>
+            <Dependent Role="tbltopic_contents">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CIIT_CRMDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbladmin_details" EntityType="Self.tbladmin_details" />
+          <EntitySet Name="tblcontent_questions" EntityType="Self.tblcontent_questions" />
+          <EntitySet Name="tblemployee_details" EntityType="Self.tblemployee_details" />
+          <EntitySet Name="tblinterview_questions" EntityType="Self.tblinterview_questions" />
+          <EntitySet Name="tbllevels" EntityType="Self.tbllevel" />
+          <EntitySet Name="tblroles" EntityType="Self.tblrole" />
+          <EntitySet Name="tblstudent_details" EntityType="Self.tblstudent_details" />
+          <EntitySet Name="tblstudent_exam_details" EntityType="Self.tblstudent_exam_details" />
+          <EntitySet Name="tblstudent_exam_questions" EntityType="Self.tblstudent_exam_questions" />
+          <EntitySet Name="tbltopic_contents" EntityType="Self.tbltopic_contents" />
+          <EntitySet Name="tbltopics" EntityType="Self.tbltopic" />
+          <EntitySet Name="vw_content_Questions" EntityType="Self.vw_content_Questions" />
+          <EntitySet Name="vw_exam_details" EntityType="Self.vw_exam_details" />
+          <EntitySet Name="vw_exam_questions" EntityType="Self.vw_exam_questions" />
+          <EntitySet Name="vw_Level_Questions" EntityType="Self.vw_Level_Questions" />
+          <EntitySet Name="vw_student_details" EntityType="Self.vw_student_details" />
+          <EntitySet Name="vw_topic_contents" EntityType="Self.vw_topic_contents" />
+          <AssociationSet Name="fkcontentId" Association="Self.fkcontentId">
+            <End Role="tbltopic_contents" EntitySet="tbltopic_contents" />
+            <End Role="tblcontent_questions" EntitySet="tblcontent_questions" />
+          </AssociationSet>
+          <AssociationSet Name="fklevelid" Association="Self.fklevelid">
+            <End Role="tbllevels" EntitySet="tbllevels" />
+            <End Role="tblcontent_questions" EntitySet="tblcontent_questions" />
+          </AssociationSet>
+          <AssociationSet Name="fkstdfudsdfentid" Association="Self.fkstdfudsdfentid">
+            <End Role="tblcontent_questions" EntitySet="tblcontent_questions" />
+            <End Role="tblstudent_exam_questions" EntitySet="tblstudent_exam_questions" />
+          </AssociationSet>
+          <AssociationSet Name="fkroleid" Association="Self.fkroleid">
+            <End Role="tblroles" EntitySet="tblroles" />
+            <End Role="tblemployee_details" EntitySet="tblemployee_details" />
+          </AssociationSet>
+          <AssociationSet Name="fkcontentdkjf" Association="Self.fkcontentdkjf">
+            <End Role="tbltopic_contents" EntitySet="tbltopic_contents" />
+            <End Role="tblinterview_questions" EntitySet="tblinterview_questions" />
+          </AssociationSet>
+          <AssociationSet Name="fkstudentid" Association="Self.fkstudentid">
+            <End Role="tblstudent_details" EntitySet="tblstudent_details" />
+            <End Role="tblstudent_exam_details" EntitySet="tblstudent_exam_details" />
+          </AssociationSet>
+          <AssociationSet Name="fkstdfudxgdentid" Association="Self.fkstdfudxgdentid">
+            <End Role="tblstudent_exam_details" EntitySet="tblstudent_exam_details" />
+            <End Role="tblstudent_exam_questions" EntitySet="tblstudent_exam_questions" />
+          </AssociationSet>
+          <AssociationSet Name="fktopicId" Association="Self.fktopicId">
+            <End Role="tbltopics" EntitySet="tbltopics" />
+            <End Role="tbltopic_contents" EntitySet="tbltopic_contents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CIIT_CRMDBModelStoreContainer" CdmEntityContainer="CIIT_CRMDBEntities">
+          <EntitySetMapping Name="tbladmin_details">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.tbladmin_details">
+              <MappingFragment StoreEntitySet="tbladmin_details">
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblcontent_questions">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.tblcontent_questions">
+              <MappingFragment StoreEntitySet="tblcontent_questions">
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="content_id" ColumnName="content_id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="option1" ColumnName="option1" />
+                <ScalarProperty Name="option2" ColumnName="option2" />
+                <ScalarProperty Name="option3" ColumnName="option3" />
+                <ScalarProperty Name="option4" ColumnName="option4" />
+                <ScalarProperty Name="correct_option_number" ColumnName="correct_option_number" />
+                <ScalarProperty Name="level_id" ColumnName="level_id" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblemployee_details">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.tblemployee_details">
+              <MappingFragment StoreEntitySet="tblemployee_details">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="mobile_number" ColumnName="mobile_number" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblinterview_questions">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.tblinterview_questions">
+              <MappingFragment StoreEntitySet="tblinterview_questions">
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="content_id" ColumnName="content_id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="answer" ColumnName="answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbllevels">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.tbllevel">
+              <MappingFragment StoreEntitySet="tbllevels">
+                <ScalarProperty Name="level_id" ColumnName="level_id" />
+                <ScalarProperty Name="question_level" ColumnName="question_level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblroles">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.tblrole">
+              <MappingFragment StoreEntitySet="tblroles">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblstudent_details">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.tblstudent_details">
+              <MappingFragment StoreEntitySet="tblstudent_details">
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="student_name" ColumnName="student_name" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="mobile_number" ColumnName="mobile_number" />
+                <ScalarProperty Name="student_code" ColumnName="student_code" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblstudent_exam_details">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.tblstudent_exam_details">
+              <MappingFragment StoreEntitySet="tblstudent_exam_details">
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="exam_date" ColumnName="exam_date" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblstudent_exam_questions">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.tblstudent_exam_questions">
+              <MappingFragment StoreEntitySet="tblstudent_exam_questions">
+                <ScalarProperty Name="exam_question_id" ColumnName="exam_question_id" />
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="student_submitted_option" ColumnName="student_submitted_option" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltopic_contents">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.tbltopic_contents">
+              <MappingFragment StoreEntitySet="tbltopic_contents">
+                <ScalarProperty Name="content_id" ColumnName="content_id" />
+                <ScalarProperty Name="content_name" ColumnName="content_name" />
+                <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="video_url" ColumnName="video_url" />
+                <ScalarProperty Name="ppts" ColumnName="ppts" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltopics">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.tbltopic">
+              <MappingFragment StoreEntitySet="tbltopics">
+                <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+                <ScalarProperty Name="topic_name" ColumnName="topic_name" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_content_Questions">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.vw_content_Questions">
+              <MappingFragment StoreEntitySet="vw_content_Questions">
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="option1" ColumnName="option1" />
+                <ScalarProperty Name="option2" ColumnName="option2" />
+                <ScalarProperty Name="option3" ColumnName="option3" />
+                <ScalarProperty Name="option4" ColumnName="option4" />
+                <ScalarProperty Name="correct_option_number" ColumnName="correct_option_number" />
+                <ScalarProperty Name="content_id" ColumnName="content_id" />
+                <ScalarProperty Name="content_name" ColumnName="content_name" />
+                <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+                <ScalarProperty Name="topic_name" ColumnName="topic_name" />
+                <ScalarProperty Name="level_id" ColumnName="level_id" />
+                <ScalarProperty Name="question_level" ColumnName="question_level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_exam_details">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.vw_exam_details">
+              <MappingFragment StoreEntitySet="vw_exam_details">
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="exam_date" ColumnName="exam_date" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="student_name" ColumnName="student_name" />
+                <ScalarProperty Name="student_code" ColumnName="student_code" />
+                <ScalarProperty Name="exam_question_id" ColumnName="exam_question_id" />
+                <ScalarProperty Name="student_submitted_option" ColumnName="student_submitted_option" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_exam_questions">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.vw_exam_questions">
+              <MappingFragment StoreEntitySet="vw_exam_questions">
+                <ScalarProperty Name="exam_question_id" ColumnName="exam_question_id" />
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="student_submitted_option" ColumnName="student_submitted_option" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="exam_date" ColumnName="exam_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Level_Questions">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.vw_Level_Questions">
+              <MappingFragment StoreEntitySet="vw_Level_Questions">
+                <ScalarProperty Name="level_id" ColumnName="level_id" />
+                <ScalarProperty Name="question_level" ColumnName="question_level" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="correct_option_number" ColumnName="correct_option_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_student_details">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.vw_student_details">
+              <MappingFragment StoreEntitySet="vw_student_details">
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="student_name" ColumnName="student_name" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="mobile_number" ColumnName="mobile_number" />
+                <ScalarProperty Name="student_code" ColumnName="student_code" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="exam_date" ColumnName="exam_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_topic_contents">
+            <EntityTypeMapping TypeName="CIIT_CRMDBModel.vw_topic_contents">
+              <MappingFragment StoreEntitySet="vw_topic_contents">
+                <ScalarProperty Name="content_id" ColumnName="content_id" />
+                <ScalarProperty Name="content_name" ColumnName="content_name" />
+                <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+                <ScalarProperty Name="topic_name" ColumnName="topic_name" />
+                <ScalarProperty Name="video_url" ColumnName="video_url" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

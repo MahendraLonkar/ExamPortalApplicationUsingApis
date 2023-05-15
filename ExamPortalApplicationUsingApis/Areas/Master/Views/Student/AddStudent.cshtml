@@ -1,0 +1,82 @@
+﻿@model ExamPortalApplicationUsingApis.Models.tblstudent_details
+@{
+    ViewBag.Title = "AddStudent";
+    Layout = "~/Areas/Master/Views/Shared/MasterLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-9">
+        <a href="/Master/Student/AllStudents" class="btn btn-primary">All Student</a>
+
+    </div>
+    <div class="col-md-3">
+
+        <h4>Total Students= @ViewBag.count</h4>
+    </div>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="height:50px;">
+            <h4>Add Student</h4>
+            </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Student Id</label>
+                        @Html.TextBoxFor(e => e.student_id, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Student Code</label>
+                        @Html.TextBoxFor(e => e.student_code, new {  @class = "form-control" })
+                    </div>
+
+                </div>
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label>Student Name</label>
+                        @Html.TextBoxFor(e => e.student_name, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        @Html.TextBoxFor(e => e.email_address, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Mobile Number</label>
+                        @Html.TextBoxFor(e => e.mobile_number, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Address</label>
+                        @Html.TextBoxFor(e => e.address, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Student Photo</label>
+                        <input type="file" name="photo" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+            <b>@ViewBag.msg</b>
+        </div>
+    </div>
+
+</form>

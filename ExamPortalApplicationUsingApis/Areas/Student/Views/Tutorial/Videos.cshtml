@@ -1,0 +1,106 @@
+﻿@model IEnumerable<ExamPortalApplicationUsingApis.Models.tbltopic_contents>
+@{
+    ViewBag.Title = "Videos";
+    Layout = "~/Areas/Student/Views/Shared/_StudentLayout.cshtml";
+}
+<script>
+
+
+    var questions = [];
+    $(document).ready(function () {
+        AllTopics();
+
+        $("#ddtopic").change(function () {
+            TopicWiseContents();
+        })
+
+    })
+    function AllTopics() {
+        $.ajax({
+            url: "/api/topic",
+            method: "get",
+            contentType: 'application/json',
+            success: function (resp) {
+                //console.log(resp);
+                $.each(resp, function (i, d) {
+                    $("#ddtopic").append("<option value=" + d.topic_id + ">" + d.topic_name + "</option>")
+                })
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+    
+    function TopicWiseContents() {
+        $.ajax({
+            url: "/api/topic_wise_content/"+$("#ddtopic").val(),
+            method: "get",
+            contentType: 'application/json',
+            success: function (resp) {
+                $("#ddcontent").empty();
+                $("#ddcontent").append("<option selected disabled>Select Content</option>")
+                $.each(resp, function (i, d) {
+                    $("#ddcontent").append("<option value=" + d.content_id + ">" + d.content_name + "</option>")
+                })
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+
+
+</script>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Select Topic</label>
+            <select id="ddtopic" class="form-control">
+                <option selected disabled>Select Topic</option>
+            </select>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Select Content</label>
+            <select id="ddcontent" class="form-control">
+                <option selected disabled>Select Content</option>
+            </select>
+
+        </div>
+    </div>
+
+
+</div>
+<div class="row">
+    <form method="post">
+        <div class="col-md-10">
+            <div class="form-group">
+                <input type="text" placeholder="search videos by content name, topic name, etc " class="form-control" name="txtsearch" />
+            </div>
+
+        </div>
+        <div class="col-md-2">
+<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+        </div>
+    </form>
+</div>
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        
+        <div class="col-md-4">
+            <video autoplay controls muted style="height:100px;width:100%" controlslist="nodownload">
+                <source src="~/Tutorial/Videos/@item.content_name/@item.video_url" />
+            </video>
+            <p style="text-align:center"><b>@item.content_name</b></p>
+
+        </div>
+        
+    }
+</div>

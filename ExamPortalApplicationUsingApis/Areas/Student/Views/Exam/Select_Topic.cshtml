@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Select_Topic";
+    Layout = "~/Areas/Student/Views/Shared/_StudentLayout.cshtml";
+}
+    <div class="row">
+        <div class="col-6">
+            @using (Html.BeginForm("StartExam","Exam"))
+            {
+
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">Select Topic</h5>
+                        <p class="card-text">
+                            <div class="form-group">
+                                @Html.DropDownList("topic_id", ViewBag.topics as List<SelectListItem>, "Select Topic", new { @class = "form-control" })
+                            </div>
+
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+    </div>
+
